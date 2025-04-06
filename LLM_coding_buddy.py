@@ -4,6 +4,9 @@ import pandas as pd
 import datetime
 import re
 
+from twython import Twython, TwythonError
+import config
+
 from google import genai
 from google.genai.types import HttpOptions, ModelContent, Part, UserContent
 
@@ -13,7 +16,7 @@ st.title('LLM Assistant for Vibe Coding')
 
 st.write('This app allows you to interact with a LLM model (gemini) and assist you through your vibe coding session. This app automatically detects when the model give you a script as a response and you can directly export it as a text file.')
 
-key = ''
+key = Twython(config.api_key)
 client = genai.Client(api_key=key)
 chat = client.chats.create(model="gemini-2.0-flash", history=[
         UserContent(parts=[Part(text="Hello, I want you to assume a role as a programming mentor that assist a beginner programmer with their coding. Please be concise with your answers.")]),
